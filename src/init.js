@@ -3,25 +3,6 @@ import { initMatrixRain } from './animations.js';
 import { initGameModule, drawStartupScreen, restartGame } from './game.js';
 import { openModal, closeModal, closeGameModal } from './modals.js';
 
-function applyThemeConfig() {
-    const { theme } = CONFIG;
-    tailwind.config = {
-        theme: {
-            extend: {
-                fontFamily: {
-                    mono: theme.fonts.mono,
-                    tech: theme.fonts.tech,
-                    sans: theme.fonts.sans,
-                },
-                colors: {
-                    cyber: theme.colors.cyber,
-                },
-                boxShadow: theme.shadows,
-            },
-        },
-    };
-}
-
 function populateProfileTexts() {
     const { profile } = CONFIG;
 
@@ -115,3 +96,6 @@ export function init() {
     // Init bulletin board
     initBulletinBoard();
 }
+
+// Auto-start on load
+init();
