@@ -1,0 +1,45 @@
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0a0a12;
+}
+::-webkit-scrollbar-thumb {
+    background: #bc34fa;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00ff66;
+}
+
+/* Neon pulse animation */
+@keyframes pulse-cyan {
+    0%, 100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.4); }
+    50% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.8); }
+}
+.neon-pulse {
+    animation: pulse-cyan 2s infinite;
+}
+
+/* Matrix canvas */
+#matrixCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Marquee animation for bulletin board */
+@keyframes marquee {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-50%); }
+    100% { transform: translateY(0); }
+}
+.animate-marquee {
+    animation: marquee 8s linear infinite;
+}
