@@ -1,47 +1,6 @@
 import { CONFIG } from '../config/index.js';
-import { initMatrixRain } from './animations.js';
-import { initGameModule, drawStartupScreen, restartGame } from './game.js';
+import { initGameModule, restartGame } from './game.js';
 import { openModal, closeModal, closeGameModal } from './modals.js';
-
-function populateProfileTexts() {
-    const { profile } = CONFIG;
-
-    // Hero section
-    document.querySelector('#hero h2').innerText = `< ${profile.tagline} />`;
-    document.querySelector('#hero h1').innerText = `${profile.name.display} ${profile.title} 的数字工坊`;
-    document.querySelector('#hero p').innerText = profile.description;
-
-    // Avatar icon
-    const avatarIcon = document.querySelector('.fa-user-astronaut');
-    if (avatarIcon && !profile.avatar.useImage) {
-        avatarIcon.className = `${profile.avatar.icon} text-4xl text-cyber-cyan`;
-    }
-
-    // Footer
-    document.querySelector('footer p:first-of-type').innerText = profile.footer.copyright;
-
-    // Status indicator
-    const statusEl = document.querySelector('.absolute.bottom-1.right-1');
-    if (statusEl) {
-        statusEl.nextElementSibling && (statusEl.nextElementSibling.textContent = profile.status.text);
-    }
-}
-
-function populateSocialTexts() {
-    const { social } = CONFIG;
-
-    // Bilibili
-    const bilibiliName = document.querySelector('.bilibili-name');
-    if (bilibiliName) bilibiliName.innerText = `B站：${social.bilibili.name}`;
-
-    // Douyin
-    const douyinName = document.querySelector('.douyin-name');
-    if (douyinName) douyinName.innerText = `抖音：${social.douyin.name}`;
-
-    // WeChat official
-    const wechatName = document.querySelector('.wechat-name');
-    if (wechatName) wechatName.innerText = `公众号：${social.wechat.official.name}`;
-}
 
 function initBulletinBoard() {
     const messages = [
@@ -63,9 +22,6 @@ function initBulletinBoard() {
 }
 
 export function init() {
-    populateProfileTexts();
-    populateSocialTexts();
-
     // Wire social platform buttons
     document.querySelectorAll('.social-btn').forEach(btn => {
         const platform = btn.dataset.platform;
@@ -86,9 +42,6 @@ export function init() {
     document.getElementById('gameModal')?.addEventListener('click', (e) => {
         if (e.target === e.currentTarget) closeGameModal();
     });
-
-    // Initialize matrix rain
-    initMatrixRain('matrixCanvas');
 
     // Initialize game
     initGameModule('gameCanvas', 'startGameBtn', 'pauseGameBtn', 'btnLeft', 'btnRight', 'gameHighScore');

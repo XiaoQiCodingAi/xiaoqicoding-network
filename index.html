@@ -72,9 +72,15 @@
                     <span class="absolute bottom-1 right-1 w-5 h-5 bg-cyber-primary border-4 border-cyber-bg rounded-full"></span>
                 </div>
 
-                <h2 id="heroTagline" class="text-xs sm:text-sm font-mono text-cyber-primary mb-2 tracking-widest uppercase"></h2>
-                <h1 id="heroTitle" class="text-4xl sm:text-6xl font-black font-tech tracking-tight text-white mb-4"></h1>
-                <p id="heroDesc" class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed"></p>
+                <h2 class="text-xs sm:text-sm font-mono text-cyber-primary mb-2 tracking-widest uppercase">
+                    &lt; HELLO WORLD, I'M A CREATOR /&gt;
+                </h2>
+                <h1 class="text-4xl sm:text-6xl font-black font-tech tracking-tight text-white mb-4">
+                    极客 <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-primary to-cyber-secondary">DEV_X</span> 的数字工坊
+                </h1>
+                <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+                    深耕科技数码测评、独立游戏开发与硬核编程实战。在这里，你可以免费体验我制作的奇特小游戏，关注我全网的最新干货，或加入知识星球解锁独家源码。
+                </p>
 
                 <div id="channels" class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-10">
                     <button data-platform="bilibili" class="social-btn flex items-center justify-between p-4 bg-cyber-card border border-pink-500/30 hover:border-pink-500 rounded-lg group transition-all duration-300 hover:-translate-y-1">
@@ -84,7 +90,7 @@
                             </span>
                             <div class="text-left">
                                 <p class="text-xs text-slate-500 font-mono">BILI_BILI</p>
-                                <p class="font-bold text-white text-sm bilibili-name"></p>
+                                <p class="font-bold text-white text-sm">B站：极客DEV_X</p>
                             </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-pink-500 transition-colors"></i>
@@ -97,7 +103,7 @@
                             </span>
                             <div class="text-left">
                                 <p class="text-xs text-slate-500 font-mono">TIKTOK_CN</p>
-                                <p class="font-bold text-white text-sm douyin-name"></p>
+                                <p class="font-bold text-white text-sm">抖音：DEV_X科技</p>
                             </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-white transition-colors"></i>
@@ -110,7 +116,7 @@
                             </span>
                             <div class="text-left">
                                 <p class="text-xs text-slate-500 font-mono">WECHAT_OFFICIAL</p>
-                                <p class="font-bold text-white text-sm wechat-name"></p>
+                                <p class="font-bold text-white text-sm">公众号：DEVX实验室</p>
                             </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-emerald-500 transition-colors"></i>
@@ -130,7 +136,7 @@
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <span class="px-3 py-1 bg-cyber-primary/10 text-cyber-primary text-xs rounded border border-cyber-primary/20 font-mono">INTERACTIVE PLAYGROUND</span>
-                    <h2 class="text-3xl font-tech font-bold text-white mt-3">🎮 游戏试玩：<span id="gameName"></span></h2>
+                    <h2 class="text-3xl font-tech font-bold text-white mt-3">🎮 游戏试玩：赛博闪避者 (Cyber Dodge)</h2>
                     <p class="text-slate-400 mt-2 text-sm max-w-xl mx-auto">无需下载，在网页内立即开玩！躲避红色危机方块，收集绿色安全核心。创造属于你的高分纪录。</p>
                 </div>
 
@@ -308,7 +314,7 @@
                 <a href="#" class="hover:text-cyber-secondary"><i class="fa-brands fa-tiktok"></i></a>
                 <a href="#" class="hover:text-cyber-cyan"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <p id="footerCopyright"></p>
+            <p>© 2026 DEV_X PORTFOLIO. ALL RIGHTS RESERVED.</p>
             <p class="text-[10px] text-slate-700">DESIGNED WITH <i class="fa-solid fa-heart text-red-800"></i> FOR SCI-TECH CREATORS</p>
         </div>
     </footer>
@@ -353,6 +359,42 @@
             </div>
         </div>
     </div>
+
+    <!-- Matrix Rain Background -->
+    <script>
+        (function() {
+            const canvas = document.getElementById('matrixCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*()_+'.split('');
+            const fontSize = 16;
+            const rainDrops = Array(Math.floor(canvas.width / fontSize)).fill(1);
+
+            setInterval(function() {
+                ctx.fillStyle = 'rgba(10, 10, 18, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#0F0';
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < rainDrops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+                    if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        rainDrops[i] = 0;
+                    }
+                    rainDrops[i]++;
+                }
+            }, 30);
+        })();
+    </script>
 
     <script type="module" src="src/init.js"></script>
 </body>
