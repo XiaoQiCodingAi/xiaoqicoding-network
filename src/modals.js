@@ -28,6 +28,16 @@ export function openModal(platform) {
         title.innerText = social.wechat.official.modalTitle;
         desc.innerText = social.wechat.official.modalDesc;
         qrText.innerText = social.wechat.official.qrLabel;
+
+        const qrImage = document.getElementById('qrImage');
+        const qrPlaceholder = document.getElementById('qrPlaceholder');
+        if (qrImage) {
+            qrImage.src = 'res/weixin.png';
+            qrImage.classList.remove('hidden');
+        }
+        if (qrPlaceholder) {
+            qrPlaceholder.classList.add('hidden');
+        }
     }
 }
 

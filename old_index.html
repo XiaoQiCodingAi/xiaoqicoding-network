@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极客空间 | 科技、编程与游戏创作个人主页</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome 字体图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: 引入等宽及科幻感字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Orbitron:wght@500;700;900&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mono: ['Fira Code', 'monospace'],
+                        tech: ['Orbitron', 'sans-serif'],
+                        sans: ['Noto Sans SC', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#0a0a12',
+                            card: '#121224',
+                            primary: '#00ff66', // 荧光绿
+                            secondary: '#bc34fa', // 霓虹紫
+                            cyan: '#00f0ff', // 科技蓝
+                            text: '#e2e8f0'
+                        }
+                    },
+                    boxShadow: {
+                        'neon-green': '0 0 15px rgba(0, 255, 102, 0.4)',
+                        'neon-purple': '0 0 15px rgba(188, 52, 250, 0.4)',
+                        'neon-cyan': '0 0 15px rgba(0, 240, 255, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bc34fa;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00ff66;
+        }
+        /* 荧光呼吸灯效果 */
+        @keyframes pulse-cyan {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(0, 240, 255, 0.8); }
+        }
+        .neon-pulse {
+            animation: pulse-cyan 2s infinite;
+        }
+        /* 数字雨画布样式 */
+        #matrixCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-cyber-bg text-cyber-text font-sans selection:bg-cyber-primary selection:text-black overflow-x-hidden">
+
+    <!-- 顶部导航栏 -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-cyber-bg/80 backdrop-blur-md border-b border-cyber-cyan/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl font-black font-tech text-cyber-cyan tracking-wider">DEV_X</span>
+                <span class="text-xs bg-cyber-primary/20 text-cyber-primary px-2 py-0.5 rounded font-mono border border-cyber-primary/30">PRO</span>
+            </div>
+            
+            <!-- 导航菜单 -->
+            <nav class="hidden md:flex space-x-8 font-mono text-sm">
+                <a href="#hero" class="text-cyber-cyan hover:text-cyber-primary transition-colors">// HOME</a>
+                <a href="#channels" class="hover:text-cyber-primary transition-colors">// FOLLOW</a>
+                <a href="#game" class="hover:text-cyber-primary transition-colors">// GAME_PLAY</a>
+                <a href="#projects" class="hover:text-cyber-primary transition-colors">// PROJECTS</a>
+                <a href="#planet" class="text-cyber-secondary hover:text-cyber-primary font-bold transition-colors">★ VIP_PLANET</a>
+            </nav>
+
+            <!-- 右侧按钮：一键加入星球 -->
+            <div>
+                <a href="#planet" class="px-4 py-2 bg-gradient-to-r from-cyber-secondary to-cyber-cyan text-white font-tech font-bold rounded-md shadow-neon-purple hover:scale-105 transition-all text-sm">
+                    JOIN_PLANET
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主体区域 -->
+    <main class="pt-16">
+
+        <!-- HERO 区：数字雨背景 + 自我介绍 + 引流入口 -->
+        <section id="hero" class="relative min-h-[90vh] flex items-center justify-center py-20 overflow-hidden border-b border-cyber-cyan/10">
+            <!-- Canvas 背景 -->
+            <canvas id="matrixCanvas"></canvas>
+            
+            <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+                <!-- 头像 -->
+                <div class="relative w-28 h-28 mx-auto mb-6">
+                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-cyber-primary via-cyber-cyan to-cyber-secondary animate-spin" style="animation-duration: 6s;"></div>
+                    <div class="absolute inset-[3px] bg-cyber-bg rounded-full flex items-center justify-center overflow-hidden">
+                        <!-- 这里可以用你的真实头像，先用机器人代指 -->
+                        <i class="fa-solid fa-user-astronaut text-4xl text-cyber-cyan"></i>
+                    </div>
+                    <!-- 在线状态指示 -->
+                    <span class="absolute bottom-1 right-1 w-5 h-5 bg-cyber-primary border-4 border-cyber-bg rounded-full"></span>
+                </div>
+
+                <h2 class="text-xs sm:text-sm font-mono text-cyber-primary mb-2 tracking-widest uppercase">
+                    &lt; HELLO WORLD, I'M A CREATOR /&gt;
+                </h2>
+                <h1 class="text-4xl sm:text-6xl font-black font-tech tracking-tight text-white mb-4">
+                    极客 <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-primary to-cyber-secondary">DEV_X</span> 的数字工坊
+                </h1>
+                
+                <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
+                    深耕科技数码测评、独立游戏开发与硬核编程实战。在这里，你可以免费体验我制作的奇特小游戏，关注我全网的最新干货，或加入知识星球解锁独家源码。
+                </p>
+
+                <!-- 核心社交平台一键关注（引流） -->
+                <div id="channels" class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-10">
+                    <!-- Bilibili -->
+                    <button onclick="openModal('bilibili')" class="flex items-center justify-between p-4 bg-cyber-card border border-pink-500/30 hover:border-pink-500 rounded-lg group transition-all duration-300 hover:-translate-y-1">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-10 h-10 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-500 text-lg group-hover:bg-pink-500 group-hover:text-white transition-all">
+                                <i class="fa-brands fa-bilibili"></i>
+                            </span>
+                            <div class="text-left">
+                                <p class="text-xs text-slate-500 font-mono">BILI_BILI</p>
+                                <p class="font-bold text-white text-sm">B站：极客DEV_X</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-pink-500 transition-colors"></i>
+                    </button>
+
+                    <!-- Douyin -->
+                    <button onclick="openModal('douyin')" class="flex items-center justify-between p-4 bg-cyber-card border border-white/20 hover:border-white rounded-lg group transition-all duration-300 hover:-translate-y-1">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center text-white text-lg group-hover:bg-white group-hover:text-black transition-all">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </span>
+                            <div class="text-left">
+                                <p class="text-xs text-slate-500 font-mono">TIKTOK_CN</p>
+                                <p class="font-bold text-white text-sm">抖音：DEV_X科技</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-white transition-colors"></i>
+                    </button>
+
+                    <!-- WeChat -->
+                    <button onclick="openModal('wechat')" class="flex items-center justify-between p-4 bg-cyber-card border border-emerald-500/30 hover:border-emerald-500 rounded-lg group transition-all duration-300 hover:-translate-y-1">
+                        <div class="flex items-center space-x-3">
+                            <span class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-500 text-lg group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                                <i class="fa-brands fa-weixin"></i>
+                            </span>
+                            <div class="text-left">
+                                <p class="text-xs text-slate-500 font-mono">WECHAT_OFFICIAL</p>
+                                <p class="font-bold text-white text-sm">公众号：DEVX实验室</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-emerald-500 transition-colors"></i>
+                    </button>
+                </div>
+
+                <!-- 指引滚动的箭头 -->
+                <div class="animate-bounce mt-8">
+                    <a href="#game" class="text-cyber-cyan hover:text-cyber-primary">
+                        <span class="block text-xs font-mono mb-2">TRY MY GAME</span>
+                        <i class="fa-solid fa-angle-down text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 游戏试玩区 (Game Showcase) -->
+        <section id="game" class="py-20 bg-cyber-card/40 border-b border-cyber-cyan/10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="px-3 py-1 bg-cyber-primary/10 text-cyber-primary text-xs rounded border border-cyber-primary/20 font-mono">INTERACTIVE PLAYGROUND</span>
+                    <h2 class="text-3xl font-tech font-bold text-white mt-3">🎮 游戏试玩：赛博闪避者 (Cyber Dodge)</h2>
+                    <p class="text-slate-400 mt-2 text-sm max-w-xl mx-auto">无需下载，在网页内立即开玩！躲避红色危机方块，收集绿色安全核心。创造属于你的高分纪录。</p>
+                </div>
+
+                <!-- 游戏窗口与说明两栏布局 -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                    
+                    <!-- 游戏 Canvas 容器 -->
+                    <div class="lg:col-span-8 bg-cyber-bg border border-cyber-cyan/30 rounded-xl overflow-hidden p-4 flex flex-col items-center justify-center shadow-neon-cyan relative">
+                        <div class="w-full flex justify-between items-center mb-2 px-2 text-xs font-mono">
+                            <span class="text-cyber-cyan"><i class="fa-solid fa-terminal mr-1"></i> STATUS: ACTIVE</span>
+                            <span class="text-cyber-primary" id="gameHighScore">HIGHEST SCORE: 0</span>
+                        </div>
+                        
+                        <!-- 游戏画布 -->
+                        <div class="relative bg-black border border-slate-800 rounded-lg w-full max-w-[500px] overflow-hidden">
+                            <canvas id="gameCanvas" width="450" height="400" class="w-full block"></canvas>
+                            
+                            <!-- 移动端虚拟控制手柄 (仅触屏显示，或默认自适应) -->
+                            <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-4 md:hidden px-4">
+                                <button id="btnLeft" class="w-12 h-12 bg-white/10 active:bg-cyber-cyan/50 text-white rounded-full flex items-center justify-center font-bold text-lg select-none">◀</button>
+                                <button id="btnRight" class="w-12 h-12 bg-white/10 active:bg-cyber-cyan/50 text-white rounded-full flex items-center justify-center font-bold text-lg select-none">▶</button>
+                            </div>
+                        </div>
+
+                        <!-- 游戏操作栏 -->
+                        <div class="mt-4 flex flex-wrap gap-4 justify-center">
+                            <button id="startGameBtn" class="px-6 py-2 bg-cyber-primary text-black font-bold font-tech rounded hover:bg-white transition-all">
+                                START GAME (开始游戏)
+                            </button>
+                            <button id="pauseGameBtn" class="px-4 py-2 bg-slate-800 text-white font-bold font-tech rounded hover:bg-slate-700 transition-all">
+                                PAUSE
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 游戏右侧说明与成就系统 -->
+                    <div class="lg:col-span-4 flex flex-col justify-between space-y-6">
+                        <div class="bg-cyber-card p-6 border border-slate-800 rounded-xl flex-1">
+                            <h3 class="text-lg font-bold font-tech text-cyber-cyan mb-4"><i class="fa-solid fa-gamepad mr-2"></i>如何游玩？</h3>
+                            <ul class="space-y-3 font-mono text-xs text-slate-300">
+                                <li class="flex items-start">
+                                    <span class="text-cyber-primary mr-2">▲</span>
+                                    <span><strong>PC端：</strong>使用键盘左右方向键 <strong>← / →</strong> 移动蓝色玩家滑块。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyber-primary mr-2">▲</span>
+                                    <span><strong>移动端：</strong>轻触屏幕下方 <strong>◀ / ▶</strong> 虚拟按钮进行躲避。</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyber-primary mr-2">▲</span>
+                                    <span><strong>目标：</strong>躲避天空中不断坠落的<strong>红色流星/导弹（☠）</strong>，收集<strong>绿色能量块（⚡）</strong>以赚取积分！</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-cyber-primary mr-2">▲</span>
+                                    <span>随着时间推移，红球速度会越来越快，挑战你的最高反应极限！</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 趣味排行榜 / 玩完跳转引导 -->
+                        <div class="bg-cyber-card p-6 border border-cyber-secondary/30 rounded-xl relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-cyber-secondary/20 text-cyber-secondary text-[10px] px-2 py-1 font-mono rounded-bl">
+                                GEEK REWARD
+                            </div>
+                            <h3 class="text-lg font-bold font-tech text-white mb-2">🎁 挑战通关奖励</h3>
+                            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                                凡是在本站游玩此游戏获得积分超过 <span class="text-cyber-primary font-bold">150分</span> 的观众老爷，截图给公众号，即可免费领取【极客开发学习资料一份】！
+                            </p>
+                            <a href="#planet" class="block text-center py-2.5 bg-gradient-to-r from-cyber-secondary/40 to-cyber-secondary text-white font-mono text-xs rounded border border-cyber-secondary hover:from-cyber-secondary hover:to-cyber-cyan transition-all">
+                                探索更多完整版独立游戏源码 ➜
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 科技与编程专栏 (Skillset & Projects) -->
+        <section id="projects" class="py-20 border-b border-cyber-cyan/10">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="px-3 py-1 bg-cyber-cyan/10 text-cyber-cyan text-xs rounded border border-cyber-cyan/20 font-mono">PORTFOLIO & SKILLS</span>
+                    <h2 class="text-3xl font-tech font-bold text-white mt-3">🛠 我的武器库与开源项目</h2>
+                    <p class="text-slate-400 mt-2 text-sm max-w-xl mx-auto">一个喜欢整活、分享高质量代码与实战硬核知识的科技先锋。</p>
+                </div>
+
+                <!-- 技术展示网格 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- 卡片 1 -->
+                    <div class="bg-cyber-card p-6 border border-slate-800 rounded-xl hover:border-cyber-cyan/40 transition-all duration-300">
+                        <div class="text-cyber-cyan text-3xl mb-4">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">硬核编程实战</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            主攻 Python/Golang 高并发、React 炫酷前端与跨端客户端开发。不仅做知识的传播者，更是代码的疯狂搬运工。
+                        </p>
+                        <span class="text-xs font-mono text-cyber-primary">#Web #Python #Fullstack</span>
+                    </div>
+
+                    <!-- 卡片 2 -->
+                    <div class="bg-cyber-card p-6 border border-slate-800 rounded-xl hover:border-cyber-primary/40 transition-all duration-300">
+                        <div class="text-cyber-primary text-3xl mb-4">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">独立游戏开发</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            使用 Unity 与 Godot 引擎创作好玩的中轻度像素休闲游戏。关注我获取完整的客户端框架以及游戏数值设计心得。
+                        </p>
+                        <span class="text-xs font-mono text-cyber-primary">#Unity #Godot #GameDev</span>
+                    </div>
+
+                    <!-- 卡片 3 -->
+                    <div class="bg-cyber-card p-6 border border-slate-800 rounded-xl hover:border-cyber-secondary/40 transition-all duration-300">
+                        <div class="text-cyber-secondary text-3xl mb-4">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2">数码/AI 前沿测评</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                            不做单纯的说明书式朗读，只做真实、主观、有观点的数码单品评测与前沿开源大模型部署教程。
+                        </p>
+                        <span class="text-xs font-mono text-cyber-primary">#Gadget #LLM #AI_Tools</span>
+                    </div>
+                </div>
+
+                <!-- 历史项目/教程推荐 -->
+                <div class="mt-12 bg-cyber-card/80 p-6 border border-slate-800 rounded-xl flex flex-col md:flex-row items-center justify-between">
+                    <div class="mb-4 md:mb-0 text-left">
+                        <h4 class="text-base font-bold text-white font-tech">🔥 开源精品推荐：全能黑客工具箱配置</h4>
+                        <p class="text-xs text-slate-400 mt-1">B站播放量破 100W 的宝藏开源库，整合数十款日常开发实用脚本与自动化流程工具。</p>
+                    </div>
+                    <button onclick="openModal('wechat')" class="px-5 py-2 bg-cyber-cyan text-black font-bold font-mono text-xs rounded hover:bg-white transition-all whitespace-nowrap">
+                        GET REPO (获取开源地址)
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 知识星球付费转化区 (VIP Planet) -->
+        <section id="planet" class="py-20 relative overflow-hidden bg-gradient-to-b from-cyber-bg to-[#150a25]">
+            <!-- 紫色霓虹背景光晕 -->
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-cyber-secondary/20 rounded-full blur-3xl"></div>
+            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-cyber-cyan/15 rounded-full blur-3xl"></div>
+
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-12">
+                    <span class="px-3 py-1 bg-cyber-secondary/15 text-cyber-secondary text-xs rounded border border-cyber-secondary/30 font-mono tracking-widest">PREMIUM COMMUNITY</span>
+                    <h2 class="text-3xl sm:text-4xl font-tech font-black text-white mt-3 tracking-wide">🚀 加入【DEV_X 的硬核极客星球】</h2>
+                    <p class="text-slate-400 mt-2 text-sm max-w-xl mx-auto">如果你不甘于只做普通看客，想要进一步提升编程搞钱实力、获取独立游戏源码并与我直接对话，欢迎加入我的专属星球。</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    
+                    <!-- 星球价值支撑清单 -->
+                    <div class="lg:col-span-7 space-y-6 text-left">
+                        <div class="flex items-start space-x-4">
+                            <span class="w-10 h-10 shrink-0 rounded-lg bg-cyber-primary/10 border border-cyber-primary/30 flex items-center justify-center text-cyber-primary">
+                                <i class="fa-solid fa-code-merge"></i>
+                            </span>
+                            <div>
+                                <h3 class="text-white font-bold text-sm">全套游戏/工具源码归档</h3>
+                                <p class="text-xs text-slate-400 mt-1">视频里制作的所有整活项目、游戏 Demo 的工程源文件、打包后的成品，仅对星友无条件免费公开。</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <span class="w-10 h-10 shrink-0 rounded-lg bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center text-cyber-cyan">
+                                <i class="fa-solid fa-comments"></i>
+                            </span>
+                            <div>
+                                <h3 class="text-white font-bold text-sm">专属技术社群与 1V1 答疑解惑</h3>
+                                <p class="text-xs text-slate-400 mt-1">遇到 Bug 卡死不知所措？提供 1V1 私信技术指导服务，日常社群内解答各类部署及自媒体起步问题。</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <span class="w-10 h-10 shrink-0 rounded-lg bg-cyber-secondary/10 border border-cyber-secondary/30 flex items-center justify-center text-cyber-secondary">
+                                <i class="fa-solid fa-sack-dollar"></i>
+                            </span>
+                            <div>
+                                <h3 class="text-white font-bold text-sm">自媒体商业变现与接单副业指南</h3>
+                                <p class="text-xs text-slate-400 mt-1">分享我是如何从 0 做到数十万粉丝的自媒体变现实操。提供副业软件外包、小游戏接单的避坑指南。</p>
+                            </div>
+                        </div>
+
+                        <!-- 虚假的动态实时滚动弹幕，提升紧迫感 -->
+                        <div class="bg-black/40 border border-slate-800 p-3 rounded-lg overflow-hidden h-14 relative">
+                            <div class="absolute inset-x-0 bottom-0 top-0 text-[11px] font-mono text-cyber-primary opacity-80" id="bulletinBoard">
+                                <div class="animate-marquee space-y-1">
+                                    <p>⚡ [用户_94a2] 1分钟前 成功加入星球并获取了独立游戏源码</p>
+                                    <p>🔥 [极客老王] 3分钟前 加入星球并发布了求助贴</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 转化卡片 (带二维码) -->
+                    <div class="lg:col-span-5 bg-cyber-card border-2 border-cyber-secondary rounded-2xl p-6 shadow-neon-purple text-center relative overflow-hidden">
+                        <!-- 爆款标记 -->
+                        <div class="absolute -top-1 -right-1 bg-cyber-secondary text-white font-tech text-[10px] font-bold px-3 py-1 rounded-bl-lg">
+                            HOT VALUE
+                        </div>
+                        
+                        <h4 class="text-lg font-bold text-white mb-2 font-mono">DEV_X 专属极客圈</h4>
+                        <div class="my-4 flex justify-center items-baseline space-x-2">
+                            <span class="text-xs text-slate-400 line-through">¥199/年</span>
+                            <span class="text-3xl font-tech font-black text-cyber-primary">¥99</span>
+                            <span class="text-xs text-cyber-primary font-mono font-bold bg-cyber-primary/10 px-1.5 py-0.5 rounded">首批优惠价</span>
+                        </div>
+                        
+                        <p class="text-xs text-slate-400 mb-6 leading-relaxed">
+                            扫码即刻加入。限时 5 折。支持 3 天内无条件退款（保障你的权益，真金不怕火炼）。
+                        </p>
+
+                        <!-- 付费承载二维码占位符 -->
+                        <div class="bg-white p-3 rounded-xl inline-block mb-6 shadow-lg border-4 border-cyber-secondary/40">
+                            <!-- 二维码示意（请替换成你的真实星球小程序码或付账码） -->
+                            <div class="w-36 h-36 flex items-center justify-center bg-slate-100 border border-dashed border-slate-400 text-slate-500 text-xs flex-col relative">
+                                <i class="fa-solid fa-qrcode text-5xl text-slate-700 mb-2"></i>
+                                <span class="font-bold text-[10px] text-slate-700">【知识星球二维码】</span>
+                                <span class="text-[8px] text-slate-500 scale-90 mt-1">（请替换为真实二维码）</span>
+                            </div>
+                        </div>
+
+                        <div class="text-[10px] text-slate-500 font-mono">
+                            <i class="fa-solid fa-lock mr-1"></i> SECURE ENCRYPTED PAYMENT via WECHAT
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-black py-12 border-t border-slate-900 font-mono text-xs text-slate-600">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-4">
+            <div class="flex justify-center space-x-6 text-lg text-slate-500 mb-2">
+                <a href="#" class="hover:text-cyber-cyan"><i class="fa-brands fa-bilibili"></i></a>
+                <a href="#" class="hover:text-cyber-primary"><i class="fa-brands fa-weixin"></i></a>
+                <a href="#" class="hover:text-cyber-secondary"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" class="hover:text-cyber-cyan"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <p>© 2026 DEV_X PORTFOLIO. ALL RIGHTS RESERVED.</p>
+            <p class="text-[10px] text-slate-700">DESIGNED WITH <i class="fa-solid fa-heart text-red-800"></i> FOR SCI-TECH CREATORS</p>
+        </div>
+    </footer>
+
+    <!-- 引流弹窗（微信公众号、B站、抖音扫码关注弹窗） -->
+    <div id="qrModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+        <div class="bg-cyber-card border border-cyber-cyan/50 max-w-sm w-full rounded-2xl p-6 relative shadow-neon-cyan">
+            <!-- 关闭按钮 -->
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center">
+                <span id="modalIcon" class="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center mx-auto text-xl mb-3">
+                    <i class="fa-solid fa-qrcode"></i>
+                </span>
+                <h3 id="modalTitle" class="text-xl font-bold font-tech text-white mb-2">关注我的平台</h3>
+                <p id="modalDesc" class="text-xs text-slate-400 mb-6">扫码关注，获取最新编程教学与测评动态</p>
+                
+                <!-- 二维码 -->
+                <div class="bg-white p-4 rounded-xl inline-block mb-4 shadow-inner">
+                    <div class="w-40 h-40 flex items-center justify-center bg-slate-100 border border-dashed border-slate-400 text-slate-500 text-xs flex-col relative">
+                        <i class="fa-solid fa-qrcode text-6xl text-slate-700 mb-2 animate-pulse"></i>
+                        <span class="font-bold text-[10px] text-slate-700" id="qrText">B站 / 抖音 / 微信</span>
+                        <span class="text-[8px] text-slate-500 scale-90 mt-1">（双击 index.html 替换此图）</span>
+                    </div>
+                </div>
+                
+                <p class="text-[10px] text-cyber-primary font-mono"><i class="fa-solid fa-circle-check mr-1"></i> 已安全核验，欢迎加入核心粉丝圈</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏结束/提交分数弹窗 -->
+    <div id="gameModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+        <div class="bg-cyber-card border border-cyber-primary/50 max-w-sm w-full rounded-2xl p-6 relative shadow-neon-green text-center">
+            <h3 class="text-2xl font-tech font-black text-cyber-primary mb-2">GAME OVER ☠</h3>
+            <p class="text-xs text-slate-400 mb-4">你在极限闪避中不幸被危机击中！</p>
+            
+            <div class="bg-black/50 py-4 rounded-lg mb-6">
+                <span class="text-xs text-slate-500 block">YOUR SCORE</span>
+                <span class="text-4xl font-tech font-bold text-white" id="modalFinalScore">0</span>
+            </div>
+
+            <p class="text-[11px] text-slate-400 mb-6 leading-relaxed">
+                🎉 分数超过 <span class="text-cyber-cyan font-bold">150分</span> 即可截图公众号领取独家资料！加油！
+            </p>
+
+            <div class="flex space-x-4">
+                <button onclick="restartGame()" class="flex-1 py-2 bg-cyber-primary text-black font-bold text-sm rounded hover:bg-white transition-all">
+                    RETRY (重新挑战)
+                </button>
+                <button onclick="closeGameModal()" class="flex-1 py-2 bg-slate-800 text-white font-bold text-sm rounded hover:bg-slate-700 transition-all">
+                    CLOSE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 交互与游戏实现 -->
+    <script>
+        // 1. 弹出窗管理
+        function openModal(platform) {
+            const modal = document.getElementById('qrModal');
+            const icon = document.getElementById('modalIcon');
+            const title = document.getElementById('modalTitle');
+            const desc = document.getElementById('modalDesc');
+            const qrText = document.getElementById('qrText');
+
+            modal.classList.remove('hidden');
+
+            if (platform === 'bilibili') {
+                icon.className = "w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center mx-auto text-pink-500 text-xl mb-3";
+                icon.innerHTML = '<i class="fa-brands fa-bilibili"></i>';
+                title.innerText = "关注 BiliBili 频道";
+                desc.innerText = "获取最硬核的科技数码评测和完整实战项目视频";
+                qrText.innerText = "【B站二维码】";
+            } else if (platform === 'douyin') {
+                icon.className = "w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto text-white text-xl mb-3";
+                icon.innerHTML = '<i class="fa-brands fa-tiktok"></i>';
+                title.innerText = "关注我的抖音短视频";
+                desc.innerText = "1分钟看懂编程小技巧与最新科技动态资讯";
+                qrText.innerText = "【抖音二维码】";
+            } else if (platform === 'wechat') {
+                icon.className = "w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto text-emerald-500 text-xl mb-3";
+                icon.innerHTML = '<i class="fa-brands fa-weixin"></i>';
+                title.innerText = "关注公众号 【DEVX实验室】";
+                desc.innerText = "关注回复“1024”，免费下载海量独立游戏资源包与源码";
+                qrText.innerText = "【公众号二维码】";
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('qrModal').classList.add('hidden');
+        }
+
+        // 2. 黑客数字雨背景特效 (Matrix Canvas)
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const katakana = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*()_+";
+        const alphabet = katakana.split("");
+
+        const fontSize = 16;
+        let columns = canvas.width / fontSize;
+
+        const rainDrops = [];
+
+        for (let x = 0; x < columns; x++) {
+            rainDrops[x] = 1;
+        }
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 10, 18, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0'; // 绿色字体
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet[Math.floor(Math.random() * alphabet.length)];
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 30);
+
+
+        // 3. 极简网页游戏：《赛博闪避者 (Cyber Dodge)》
+        const gCanvas = document.getElementById('gameCanvas');
+        const gCtx = gCanvas.getContext('2d');
+
+        // 游戏状态
+        let score = 0;
+        let highScore = localStorage.getItem('cyberDodgeHighScore') || 0;
+        document.getElementById('gameHighScore').innerText = "HIGHEST SCORE: " + highScore;
+
+        let gameActive = false;
+        let isPaused = false;
+        
+        // 玩家对象
+        const player = {
+            x: gCanvas.width / 2 - 25,
+            y: gCanvas.height - 40,
+            width: 50,
+            height: 15,
+            speed: 8,
+            color: '#00f0ff' // 霓虹蓝
+        };
+
+        // 障碍物和奖励
+        let obstacles = [];
+        let rewards = [];
+        let keys = {};
+
+        // 键盘监听
+        window.addEventListener('keydown', (e) => {
+            keys[e.code] = true;
+            if (e.code === 'ArrowLeft' || e.code === 'ArrowRight' || e.code === 'Space') {
+                e.preventDefault(); // 阻止滚动页面
+            }
+        });
+        window.addEventListener('keyup', (e) => {
+            keys[e.code] = false;
+        });
+
+        // 移动端模拟摇杆
+        document.getElementById('btnLeft').addEventListener('touchstart', (e) => { e.preventDefault(); keys['ArrowLeft'] = true; });
+        document.getElementById('btnLeft').addEventListener('touchend', () => { keys['ArrowLeft'] = false; });
+        document.getElementById('btnRight').addEventListener('touchstart', (e) => { e.preventDefault(); keys['ArrowRight'] = true; });
+        document.getElementById('btnRight').addEventListener('touchend', () => { keys['ArrowRight'] = false; });
+
+        // 游戏交互按键绑定
+        document.getElementById('startGameBtn').addEventListener('click', () => {
+            if (!gameActive) {
+                initGame();
+                gameActive = true;
+                isPaused = false;
+                gameLoop();
+            }
+        });
+
+        document.getElementById('pauseGameBtn').addEventListener('click', () => {
+            if (gameActive) {
+                isPaused = !isPaused;
+                document.getElementById('pauseGameBtn').innerText = isPaused ? "RESUME" : "PAUSE";
+                if (!isPaused) {
+                    gameLoop();
+                }
+            }
+        });
+
+        function initGame() {
+            score = 0;
+            obstacles = [];
+            rewards = [];
+            player.x = gCanvas.width / 2 - player.width / 2;
+        }
+
+        // 碰撞检测
+        function isColliding(rect1, rect2) {
+            return rect1.x < rect2.x + rect2.width &&
+                   rect1.x + rect1.width > rect2.x &&
+                   rect1.y < rect2.y + rect2.height &&
+                   rect1.y + rect1.height > rect2.y;
+        }
+
+        // 渲染循环
+        function gameLoop() {
+            if (!gameActive || isPaused) return;
+
+            gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+
+            // 绘制网格背景营造科幻感
+            gCtx.strokeStyle = 'rgba(0, 240, 255, 0.05)';
+            gCtx.lineWidth = 1;
+            for(let x=0; x<gCanvas.width; x+=30) {
+                gCtx.beginPath();
+                gCtx.moveTo(x, 0);
+                gCtx.lineTo(x, gCanvas.height);
+                gCtx.stroke();
+            }
+            for(let y=0; y<gCanvas.height; y+=30) {
+                gCtx.beginPath();
+                gCtx.moveTo(0, y);
+                gCtx.lineTo(gCanvas.width, y);
+                gCtx.stroke();
+            }
+
+            // 更新玩家位置
+            if (keys['ArrowLeft'] && player.x > 0) {
+                player.x -= player.speed;
+            }
+            if (keys['ArrowRight'] && player.x < gCanvas.width - player.width) {
+                player.x += player.speed;
+            }
+
+            // 绘制玩家
+            gCtx.fillStyle = player.color;
+            gCtx.shadowColor = '#00f0ff';
+            gCtx.shadowBlur = 10;
+            gCtx.fillRect(player.x, player.y, player.width, player.height);
+            gCtx.shadowBlur = 0; // 重置阴影
+
+            // 随机生成红球障碍物 (概率随得分增加)
+            if (Math.random() < 0.03 + (score * 0.0001)) {
+                obstacles.push({
+                    x: Math.random() * (gCanvas.width - 20),
+                    y: -20,
+                    width: 16,
+                    height: 16,
+                    speed: 3 + Math.random() * 4 + (score * 0.01),
+                    color: '#ff3366' // 危机红
+                });
+            }
+
+            // 随机生成绿色能量块
+            if (Math.random() < 0.015) {
+                rewards.push({
+                    x: Math.random() * (gCanvas.width - 20),
+                    y: -20,
+                    width: 14,
+                    height: 14,
+                    speed: 2 + Math.random() * 2,
+                    color: '#00ff66' // 荧光绿
+                });
+            }
+
+            // 更新和绘制障碍物
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                const obs = obstacles[i];
+                obs.y += obs.speed;
+
+                // 绘制圆形流星
+                gCtx.fillStyle = obs.color;
+                gCtx.beginPath();
+                gCtx.arc(obs.x + obs.width/2, obs.y + obs.height/2, obs.width/2, 0, Math.PI * 2);
+                gCtx.fill();
+
+                // 碰撞判定
+                if (isColliding(player, obs)) {
+                    gameOver();
+                    return;
+                }
+
+                // 移除出屏的
+                if (obs.y > gCanvas.height) {
+                    obstacles.splice(i, 1);
+                }
+            }
+
+            // 更新和绘制奖励块
+            for (let i = rewards.length - 1; i >= 0; i--) {
+                const rwd = rewards[i];
+                rwd.y += rwd.speed;
+
+                // 绘制带霓虹质感的四角星/正方形
+                gCtx.fillStyle = rwd.color;
+                gCtx.fillRect(rwd.x, rwd.y, rwd.width, rwd.height);
+
+                // 碰撞判定
+                if (isColliding(player, rwd)) {
+                    score += 10;
+                    rewards.splice(i, 1);
+                    continue;
+                }
+
+                // 移除出屏的
+                if (rwd.y > gCanvas.height) {
+                    rewards.splice(i, 1);
+                }
+            }
+
+            // 绘制当前分数
+            gCtx.fillStyle = '#ffffff';
+            gCtx.font = '14px Orbitron';
+            gCtx.fillText("SCORE: " + score, 15, 25);
+
+            requestAnimationFrame(gameLoop);
+        }
+
+        function gameOver() {
+            gameActive = false;
+            // 更新最高分记录
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('cyberDodgeHighScore', highScore);
+                document.getElementById('gameHighScore').innerText = "HIGHEST SCORE: " + highScore;
+            }
+
+            // 弹出得分框
+            document.getElementById('modalFinalScore').innerText = score;
+            document.getElementById('gameModal').classList.remove('hidden');
+        }
+
+        function restartGame() {
+            closeGameModal();
+            initGame();
+            gameActive = true;
+            gameLoop();
+        }
+
+        function closeGameModal() {
+            document.getElementById('gameModal').classList.add('hidden');
+        }
+
+        // 初始化Canvas画面（显示开始语）
+        function drawStartupScreen() {
+            gCtx.fillStyle = '#121224';
+            gCtx.fillRect(0, 0, gCanvas.width, gCanvas.height);
+
+            gCtx.fillStyle = '#00f0ff';
+            gCtx.font = '22px Orbitron';
+            gCtx.textAlign = 'center';
+            gCtx.fillText("CYBER DODGE v1.0", gCanvas.width/2, gCanvas.height/2 - 20);
+
+            gCtx.fillStyle = '#94a3b8';
+            gCtx.font = '12px Noto Sans SC';
+            gCtx.fillText("点击下方按钮启动独立引擎试玩", gCanvas.width/2, gCanvas.height/2 + 20);
+        }
+        drawStartupScreen();
+
+        // 4. 星球实时成员弹幕小趣味
+        const bulletinBoard = document.getElementById('bulletinBoard');
+        const marqueeMessages = [
+            "⚡ [极客老李] 刚刚加入星球，获取了 Unity 核心代码框架",
+            "🚀 [代码无情] 10分钟前 成功加入星球并提问了 Golang 高并发实战",
+            "🔥 [游戏小王] 刚刚领取了首批 5 折优惠名额",
+            "💡 [AI弄潮儿] 3分钟前 加入了专属星球交流群"
+        ];
+        
+        setInterval(() => {
+            const randomMsg = marqueeMessages[Math.floor(Math.random() * marqueeMessages.length)];
+            const userRandomId = Math.random().toString(36).substring(2, 6);
+            const timeRandom = Math.floor(Math.random() * 5) + 1;
+            bulletinBoard.innerHTML = `<div class="animate-pulse py-1">⚡ [User_${userRandomId}] ${timeRandom}分钟前 ${randomMsg.split("] ")[1]}</div>`;
+        }, 5000);
+    </script>
+</body>
+</html>

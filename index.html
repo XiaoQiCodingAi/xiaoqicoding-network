@@ -42,7 +42,7 @@
     <header class="fixed top-0 left-0 w-full z-50 bg-cyber-bg/80 backdrop-blur-md border-b border-cyber-cyan/20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-2">
-                <span id="logoText" class="text-2xl font-black font-tech text-cyber-cyan tracking-wider">DEV_X</span>
+                <span id="logoText" class="text-2xl font-black font-tech text-cyber-cyan tracking-wider">打工人小棋</span>
                 <span class="text-xs bg-cyber-primary/20 text-cyber-primary px-2 py-0.5 rounded font-mono border border-cyber-primary/30">PRO</span>
             </div>
             <nav class="hidden md:flex space-x-8 font-mono text-sm">
@@ -76,7 +76,7 @@
                     &lt; HELLO WORLD, I'M A CREATOR /&gt;
                 </h2>
                 <h1 class="text-4xl sm:text-6xl font-black font-tech tracking-tight text-white mb-4">
-                    极客 <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-primary to-cyber-secondary">DEV_X</span> 的数字工坊
+                    极客 <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-primary to-cyber-secondary">打工人小棋</span> 的数字工坊
                 </h1>
                 <p class="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto mb-8 leading-relaxed">
                     深耕科技数码测评、独立游戏开发与硬核编程实战。在这里，你可以免费体验我制作的奇特小游戏，关注我全网的最新干货，或加入知识星球解锁独家源码。
@@ -90,7 +90,7 @@
                             </span>
                             <div class="text-left">
                                 <p class="text-xs text-slate-500 font-mono">BILI_BILI</p>
-                                <p class="font-bold text-white text-sm">B站：极客DEV_X</p>
+                                <p class="font-bold text-white text-sm">B站：极客打工人小棋</p>
                             </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-pink-500 transition-colors"></i>
@@ -103,7 +103,7 @@
                             </span>
                             <div class="text-left">
                                 <p class="text-xs text-slate-500 font-mono">TIKTOK_CN</p>
-                                <p class="font-bold text-white text-sm">抖音：DEV_X科技</p>
+                                <p class="font-bold text-white text-sm">抖音：打工人小棋科技</p>
                             </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-slate-500 group-hover:text-white transition-colors"></i>
@@ -136,27 +136,19 @@
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <span class="px-3 py-1 bg-cyber-primary/10 text-cyber-primary text-xs rounded border border-cyber-primary/20 font-mono">INTERACTIVE PLAYGROUND</span>
-                    <h2 class="text-3xl font-tech font-bold text-white mt-3">🎮 游戏试玩：赛博闪避者 (Cyber Dodge)</h2>
-                    <p class="text-slate-400 mt-2 text-sm max-w-xl mx-auto">无需下载，在网页内立即开玩！躲避红色危机方块，收集绿色安全核心。创造属于你的高分纪录。</p>
+                    <h2 class="text-3xl font-tech font-bold text-white mt-3">🎮 Geo Storm</h2>
+                    <p class="text-slate-400 mt-2 text-sm max-w-xl mx-auto">驾驶飞船在陨石风暴中生存，躲避障碍物，收集能量，挑战最高分！</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                     <div class="lg:col-span-8 bg-cyber-bg border border-cyber-cyan/30 rounded-xl overflow-hidden p-4 flex flex-col items-center justify-center shadow-neon-cyan relative">
-                        <div class="w-full flex justify-between items-center mb-2 px-2 text-xs font-mono">
-                            <span class="text-cyber-cyan"><i class="fa-solid fa-terminal mr-1"></i> STATUS: ACTIVE</span>
-                            <span class="text-cyber-primary" id="gameHighScore">HIGHEST SCORE: 0</span>
-                        </div>
-                        <div class="relative bg-black border border-slate-800 rounded-lg w-full max-w-[500px] overflow-hidden">
-                            <canvas id="gameCanvas" width="450" height="400" class="w-full block"></canvas>
-                            <div class="absolute bottom-4 left-0 right-0 flex justify-center space-x-4 md:hidden px-4">
-                                <button id="btnLeft" class="w-12 h-12 bg-white/10 active:bg-cyber-cyan/50 text-white rounded-full flex items-center justify-center font-bold text-lg select-none">◀</button>
-                                <button id="btnRight" class="w-12 h-12 bg-white/10 active:bg-cyber-cyan/50 text-white rounded-full flex items-center justify-center font-bold text-lg select-none">▶</button>
-                            </div>
-                        </div>
-                        <div class="mt-4 flex flex-wrap gap-4 justify-center">
-                            <button id="startGameBtn" class="px-6 py-2 bg-cyber-primary text-black font-bold font-tech rounded hover:bg-white transition-all">START GAME (开始游戏)</button>
-                            <button id="pauseGameBtn" class="px-4 py-2 bg-slate-800 text-white font-bold font-tech rounded hover:bg-slate-700 transition-all">PAUSE</button>
-                        </div>
+                        <iframe
+                            src="https://xiaoqicoding.com/game/geo-storm/"
+                            width="100%"
+                            height="500"
+                            style="border: 1px solid #00f0ff; border-radius: 8px;"
+                            allowfullscreen>
+                        </iframe>
                     </div>
 
                     <div class="lg:col-span-4 flex flex-col justify-between space-y-6">
@@ -165,19 +157,15 @@
                             <ul class="space-y-3 font-mono text-xs text-slate-300">
                                 <li class="flex items-start">
                                     <span class="text-cyber-primary mr-2">▲</span>
-                                    <span><strong>PC端：</strong>使用键盘左右方向键 <strong>← / →</strong> 移动蓝色玩家滑块。</span>
+                                    <span><strong>PC端：</strong>使用键盘 <strong>← / →</strong> 或 <strong>A / D</strong> 移动飞船。</span>
                                 </li>
                                 <li class="flex items-start">
                                     <span class="text-cyber-primary mr-2">▲</span>
-                                    <span><strong>移动端：</strong>轻触屏幕下方 <strong>◀ / ▶</strong> 虚拟按钮进行躲避。</span>
+                                    <span><strong>移动端：</strong>触摸屏幕左右两侧控制飞船方向。</span>
                                 </li>
                                 <li class="flex items-start">
                                     <span class="text-cyber-primary mr-2">▲</span>
-                                    <span><strong>目标：</strong>躲避天空中不断坠落的<strong>红色流星/导弹（☠）</strong>，收集<strong>绿色能量块（⚡）</strong>以赚取积分！</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <span class="text-cyber-primary mr-2">▲</span>
-                                    <span>随着时间推移，红球速度会越来越快，挑战你的最高反应极限！</span>
+                                    <span><strong>目标：</strong>躲避陨石，收集能量球，存活更长时间获得更高分数！</span>
                                 </li>
                             </ul>
                         </div>
@@ -185,7 +173,7 @@
                         <div class="bg-cyber-card p-6 border border-cyber-secondary/30 rounded-xl relative overflow-hidden">
                             <div class="absolute top-0 right-0 bg-cyber-secondary/20 text-cyber-secondary text-[10px] px-2 py-1 font-mono rounded-bl">GEEK REWARD</div>
                             <h3 class="text-lg font-bold font-tech text-white mb-2">🎁 挑战通关奖励</h3>
-                            <p class="text-xs text-slate-400 mb-4 leading-relaxed">凡是在本站游玩此游戏获得积分超过 <span class="text-cyber-primary font-bold">150分</span> 的观众老爷，截图给公众号，即可免费领取【极客开发学习资料一份】！</p>
+                            <p class="text-xs text-slate-400 mb-4 leading-relaxed">分享游戏截图到公众号，备注"Geo Storm"，可获取游戏源码资料！</p>
                             <a href="#planet" class="block text-center py-2.5 bg-gradient-to-r from-cyber-secondary/40 to-cyber-secondary text-white font-mono text-xs rounded border border-cyber-secondary hover:from-cyber-secondary hover:to-cyber-cyan transition-all">探索更多完整版独立游戏源码 ➜</a>
                         </div>
                     </div>
@@ -239,7 +227,7 @@
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="text-center mb-12">
                     <span class="px-3 py-1 bg-cyber-secondary/15 text-cyber-secondary text-xs rounded border border-cyber-secondary/30 font-mono tracking-widest">PREMIUM COMMUNITY</span>
-                    <h2 class="text-3xl sm:text-4xl font-tech font-black text-white mt-3 tracking-wide">🚀 加入【DEV_X 的硬核极客星球】</h2>
+                    <h2 class="text-3xl sm:text-4xl font-tech font-black text-white mt-3 tracking-wide">🚀 加入【打工人小棋 的硬核极客星球】</h2>
                     <p class="text-slate-400 mt-2 text-sm max-w-xl mx-auto">如果你不甘于只做普通看客，想要进一步提升编程搞钱实力、获取独立游戏源码并与我直接对话，欢迎加入我的专属星球。</p>
                 </div>
 
@@ -285,7 +273,7 @@
 
                     <div class="lg:col-span-5 bg-cyber-card border-2 border-cyber-secondary rounded-2xl p-6 shadow-neon-purple text-center relative overflow-hidden">
                         <div class="absolute -top-1 -right-1 bg-cyber-secondary text-white font-tech text-[10px] font-bold px-3 py-1 rounded-bl-lg">HOT VALUE</div>
-                        <h4 class="text-lg font-bold text-white mb-2 font-mono">DEV_X 专属极客圈</h4>
+                        <h4 class="text-lg font-bold text-white mb-2 font-mono">打工人小棋 专属极客圈</h4>
                         <div class="my-4 flex justify-center items-baseline space-x-2">
                             <span class="text-xs text-slate-400 line-through">¥199/年</span>
                             <span class="text-3xl font-tech font-black text-cyber-primary">¥99</span>
@@ -314,7 +302,7 @@
                 <a href="#" class="hover:text-cyber-secondary"><i class="fa-brands fa-tiktok"></i></a>
                 <a href="#" class="hover:text-cyber-cyan"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <p>© 2026 DEV_X PORTFOLIO. ALL RIGHTS RESERVED.</p>
+            <p>© 2026 打工人小棋 PORTFOLIO. ALL RIGHTS RESERVED.</p>
             <p class="text-[10px] text-slate-700">DESIGNED WITH <i class="fa-solid fa-heart text-red-800"></i> FOR SCI-TECH CREATORS</p>
         </div>
     </footer>
@@ -332,7 +320,8 @@
                 <h3 id="modalTitle" class="text-xl font-bold font-tech text-white mb-2"></h3>
                 <p id="modalDesc" class="text-xs text-slate-400 mb-6"></p>
                 <div class="bg-white p-4 rounded-xl inline-block mb-4 shadow-inner">
-                    <div class="w-40 h-40 flex items-center justify-center bg-slate-100 border border-dashed border-slate-400 text-slate-500 text-xs flex-col relative">
+                    <img id="qrImage" src="res/weixin.png" alt="QR Code" class="w-40 h-40 object-cover hidden">
+                    <div id="qrPlaceholder" class="w-40 h-40 flex items-center justify-center bg-slate-100 border border-dashed border-slate-400 text-slate-500 text-xs flex-col">
                         <i class="fa-solid fa-qrcode text-6xl text-slate-700 mb-2 animate-pulse"></i>
                         <span class="font-bold text-[10px] text-slate-700" id="qrText"></span>
                         <span class="text-[8px] text-slate-500 scale-90 mt-1">（双击 index.html 替换此图）</span>
@@ -397,5 +386,20 @@
     </script>
 
     <script type="module" src="src/init.js"></script>
+    <script>
+        // Fallback: also wire social buttons directly in case module fails
+        document.querySelectorAll('.social-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const platform = this.dataset.platform;
+                if (platform === 'bilibili') {
+                    window.open('https://space.bilibili.com/302482063', '_blank');
+                } else if (platform === 'douyin') {
+                    window.open('https://www.douyin.com/user/MS4wLjABAAAA2_JRLf8SVrp12rfLVuM74Wpo3unoSN47QNoLGKjkkC1Lndq_7R7OMcVEUI7CR8qU', '_blank');
+                } else if (platform === 'wechat') {
+                    document.getElementById('qrModal').classList.remove('hidden');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
