@@ -38,6 +38,22 @@ export function openModal(platform) {
         if (qrPlaceholder) {
             qrPlaceholder.classList.add('hidden');
         }
+    } else if (platform === 'planet') {
+        icon.className = 'w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mx-auto text-blue-500 text-xl mb-3';
+        icon.innerHTML = '<i class="fa-solid fa-planet-ringed"></i>';
+        title.innerText = social.wechat.planet.modalTitle;
+        desc.innerText = social.wechat.planet.modalDesc;
+        qrText.innerText = social.wechat.planet.qrLabel;
+
+        const qrImage = document.getElementById('qrImage');
+        const qrPlaceholder = document.getElementById('qrPlaceholder');
+        if (qrImage) {
+            qrImage.src = social.wechat.planet.qrImage;
+            qrImage.classList.remove('hidden');
+        }
+        if (qrPlaceholder) {
+            qrPlaceholder.classList.add('hidden');
+        }
     }
 }
 
